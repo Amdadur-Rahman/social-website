@@ -1,0 +1,29 @@
+{% extends "common/base.html" %}
+
+{% block title %}login{% endblock title %}
+
+{% block content %}
+<h1>Login</h1>
+<p>please fill this field and login your account</p>
+<p>if dont have an account <a href="{% url 'register' %}">register here</a></p>
+<div class="social">
+    <ul>
+        <li class="google">
+            <form action="{% url 'social:begin' 'google-oauth2' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="sign in with google">
+            </form>
+                
+            
+        </li>
+    </ul>
+</div>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="hidden" name="next" value="{{next}}">
+    <input type="submit" value="Login">
+</form>
+
+<p><a href="{% url 'password_reset_request' %}">forget your password</a></p>
+{% endblock content %}

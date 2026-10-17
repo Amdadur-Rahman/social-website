@@ -1,0 +1,26 @@
+{% extends "common/base.html" %}
+
+{% block title %}dashboard{% endblock title %}
+
+{% block content %}
+<h1>dashboard</h1>
+{% with total_images_created=request.user.images_created.count %}
+<p>welcome your dashboark you have bookmarked {{total_images_created}}
+     image{{total_images_created|pluralize}}</p>
+     {% endwith %}
+<p>
+    drag the folliwing button to your bookmarks toolbar
+     to bookmark images from other websites 
+     <a href="javascript:{% include 'images/bookmarklet_launcher.js' %}" class="button">
+        bookmark-it
+     </a>
+</p>
+
+<p>
+    you can  <a href="{% url 'edit' %}">edit your profile</a>
+    or
+    <a href="{% url 'password_change' %}">change your password</a>
+</p>
+<h1>welcome "{{user.username}}" your dashboard</h1>
+{% endblock content %}
+

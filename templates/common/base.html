@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}my site{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+            </li>
+        {% endfor %}
+  </ul>
+{% endif %}
+    
+    <div id="header">
+        <span class='logo'>bookmarks</span>
+        {% if request.user.is_authenticated %}
+        <ul class="menu">
+            <li {% if section == 'deshboard' %} class='selected'{% endif %}>
+                <a href="{% url 'dashboard' %}">my dashboard</a>
+            </li>
+            <li {% if section == 'images' %} class='selected'{% endif %}>
+                <a href="#">images</a>
+            </li>
+            <li {% if section == 'people' %} class='selected'{% endif %}>
+                <a href="#">people</a>
+            </li>
+        </ul>
+        {% endif %}
+        
+        <span class="user">
+            {% if request.user.is_authenticated %}
+            Hello {{request.user.username}},
+            <form action="{% url 'logout' %}" method="post">
+                <button type="submit">logout</button>
+                {% csrf_token %}
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}">login</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+</body>
+</html>
