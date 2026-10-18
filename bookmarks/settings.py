@@ -27,6 +27,11 @@ SECRET_KEY = 'django-insecure-oe6a!4^83av--z)6-bfx+7jdivvc)6iwpu_^vg+4=7!5^i($p5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type('application/javascript','.js',True)
+    mimetypes.add_type('text/css','.css',True)
+
 ALLOWED_HOSTS = []
 
 
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     'django_extensions',
     'social_django',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [

@@ -52,6 +52,48 @@
         {% block content %}
         {% endblock content %}
     </div>
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></ script>
+<script>
+    const csrftoken = Cookies.get('csrftoken')
+    document.addEventListener('DOMContentLoded',(event) => {
+        
+        {% block domready %}
+        const url = "{% url 'images:like' %}"
+        var options = {
+            method: 'POST',
+            headers: {'X-CSRFToken':csrftoken},
+            mode: 'same-origin'
+        }
+        document.querySelector('a.like')
+        .addEventListener('click',(e) {
+            e.preventDefault();
+            var likeButton = this;
+
+            var formData = new FormData();
+            formData.append('id', likeButton.dataset.id);
+            formData.append('action', likeButton.dataset.action)
+            options['body'] = formData;
+
+
+            fetch (url, options)
+            .then(response => response.json())
+            .then(data => {
+                if (data['status'] === 'ok')
+                {  
+                    var previousAction = likeButton.dataset.action;
+                    var action = previousAction === 'like' ? 'unlike' : 'like';
+                    likeButton.dataset.action = action;
+                    likeButton.innerHTML = action; 
+                    var likeCount = document.querySelector('span.count .total');
+                    var totalLikes = parseInt(likeCount.innerHTML);
+                    likeCount.innerHTML = previousAction === 'like' ? totalLikes + 1 : 
+totalLikes - 1;
+ }
+            })
+        });
+        {% endblock domready %}
+    })
+</script>
 
 </body>
 </html>
