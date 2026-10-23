@@ -20,6 +20,5 @@ A Django-based web application where users can bookmark images from other websit
 - Python & Django
 - JavaScript
 - HTML & CSS
-- SQLite / PostgreSQL
 - Google OAuth
 - Git & GitHub
