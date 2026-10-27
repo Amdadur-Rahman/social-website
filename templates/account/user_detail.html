@@ -11,6 +11,7 @@
 
 {% with total_followers=user.followers.count %}
 <span class="count">
+    <span class="total">{{total_followers}}</span>
     followers{{total_followers|pluralize}}
 </span>
 <a href="#" data-id="{{user.id}}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow"
@@ -37,8 +38,8 @@ var options = {
 }
 document.querySelector('a.follow')
     .addEventLister('click', function(e){
-        e.prventDefault();
-        var followButton = this;
+    e.prventDefault();
+    var followButton = this;
 
         var formData = new FormData();
         formData.append('id',followButton.dataset.id);
@@ -61,4 +62,4 @@ document.querySelector('a.follow')
             }
         })
     })
-{% endblock domready %}
+{% endblock %}

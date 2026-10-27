@@ -17,8 +17,7 @@
              like{{total_likes|pluralize}}
         </span>
 
-        <a href="#" data-id="{{ image.id }}" data-action=
-         "{% if request.user in users_like %}un{% endif %}like " class="like button">
+        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like " class="like button">
 
         {% if request.user not in users_like %}
         like
@@ -85,4 +84,4 @@ totalLikes - 1;
  }
             })
         });
-        {% endblock domready %}
+        {% endblock %}
